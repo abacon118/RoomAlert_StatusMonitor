@@ -15,3 +15,11 @@ You must create a public URL for your Room Alert device.  Paste the URL(s) in li
 - 7x Red LEDs
 - 7x Green LEDs
 - 14x 220 Ohm 0603 Resistors
+
+
+##Schematic
+![Schematic](/Photos/Schematic_RoomAlert_Generic_2026-05-15.png)
+
+##PCB
+[Gerber](/Gerber_RoomAlert_Generic_PCB_1-copy_2026-05-15.zip)
+![PCB](/Photos/RA_PCB.png)
