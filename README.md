@@ -17,9 +17,11 @@ You must create a public URL for your Room Alert device.  Paste the URL(s) in li
 - 14x 220 Ohm 0603 Resistors
 
 
-##Schematic
+## Schematic
+[Schematic PDF](/Gerber_RoomAlert_Generic_PCB_1-copy_2026-05-15.pdf)
 ![Schematic](/Photos/Schematic_RoomAlert_Generic_2026-05-15.png)
 
-##PCB
-[Gerber](/Gerber_RoomAlert_Generic_PCB_1-copy_2026-05-15.zip)
+## PCB
+[Gerber ZIP](/Gerber_RoomAlert_Generic_PCB_1-copy_2026-05-15.zip)
+[EasyEDA Files](/RoomAlert_EasyEDA.zip)
 ![PCB](/Photos/RA_PCB.png)
