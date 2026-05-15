@@ -1,5 +1,3 @@
-<!-- markdownlint-disable MD029 -->
-
 # Room Alert Status Monitor
 ESP32 based status monitor for RoomAlert Temperature monitors and HTTP/HTTPS based web services
 
@@ -7,8 +5,8 @@ ESP32 based status monitor for RoomAlert Temperature monitors and HTTP/HTTPS bas
 1. [Install MicroPython on ESP32](https://micropython.org/download/ESP32_GENERIC_C3/)
 2. [Download RA_StatusMonitor.py](/RA_StatusMonitor.py)
 3. Edit the following lines
-  1. Line 10 - Replace with your Room Alert links. You must create a public URL for your Room Alert device.  Paste the URL(s) in line 10 of the code.
-  2. Lines 63-69 - Replace with the web services/sites you wish to monitor.  Note: You can monitor services using alternate ports such as 4433, 8080, 8443, etc. as long as it uses a TCP connection.
+     - Line 10 - Replace with your Room Alert links. You must create a public URL for your Room Alert device.  Paste the URL(s) in line 10 of the code.
+     - Lines 63-69 - Replace with the web services/sites you wish to monitor.  Note: You can monitor services using alternate ports such as 4433, 8080, 8443, etc. as long as it uses a TCP connection.
 5. Copy libaries to ESP32
 6. Save RA_StatusMonitor.py as boot.py on the ESP32 using Thonny or another similar IDE.
 
