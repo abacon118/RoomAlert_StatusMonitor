@@ -17,6 +17,7 @@ import time
 import socket
 import tm1637
 from machine import Pin
+#Pinout for TM
 tm = [
     tm1637.TM1637(clk=Pin(1), dio=Pin(0)),
     tm1637.TM1637(clk=Pin(3), dio=Pin(2)),
@@ -41,6 +42,7 @@ esp.osdebug(None)
 import gc
 gc.collect()
 
+#Pinout for LEDs
 led6 = Pin(6, Pin.OUT)
 led7 = Pin(7, Pin.OUT)
 led8 = Pin(8, Pin.OUT)
@@ -57,7 +59,7 @@ led10.value(1)
 led20.value(1)
 led21.value(1)
 
-
+#HTTP/HTTPS Web services status URLs
 PING_URLs = [ ("google.com", 443, led6),
               ("yahoo.com", 443, led7),
               ("cnn.com", 443, led8),
@@ -138,6 +140,7 @@ while(1):
                 
     
     time.sleep(60)
+
 
 
 
