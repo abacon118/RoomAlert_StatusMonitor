@@ -1,4 +1,4 @@
-# Room Alert Status Monitor
+# Room Alert and Web Service Status Display/Monitor
 ESP32 based status monitor for RoomAlert Temperature monitors and HTTP/HTTPS based web services
 
 ## Setup
