@@ -1,6 +1,10 @@
 # Room Alert Status Monitor
 ESP32 based status monitor for RoomAlert Temperature monitors and HTTP/HTTPS based web services
 
+## ESP32 Setup
+1. [Install MicroPython](https://micropython.org/download/ESP32_GENERIC_C3/)
+2. Copy libaries
+3. Save RA_StatusMonitor.py as boot.py on the ESP32 using Thonny or another similar IDE.
 
 ## Room Alert Setup
 You must create a public URL for your Room Alert device.  Paste the URL(s) in line 10 of the code.
