@@ -1,23 +1,12 @@
-# Room Alert ESP32 Monitor
+# Room Alert ESP32 Monitor V4.0
 # Andrew Bowman 2026
 # https://docs.sunfounder.com/projects/umsk/en/latest/04_pi_pico/pico_lesson26_lcd.html
 # https://microcontrollerslab.com/micropython-openweathermap-api-esp32-esp8266-sensorless-weather-station/
 # AI assistance from Copilot was used in the creation of this.
-
-ssid = 'YourBillWiTheScienceFi'
-password = 'NachoPass*word'
-#RA_URLs are the public URL for your Room Alert device
-RA_URLs = ["https://account.roomalert.com/public/device/your-device-1","https://account.roomalert.com/public/device/your-device-2","https://account.roomalert.com/public/device/your-device-3"]
-Locations = ["Site1","Site2","Site3"] #Update with your site names for RoomAlert
-Temps = [None] * len(Locations)
-lcd_char = 0
-
-
 import time
 import socket
 import tm1637
 from machine import Pin
-#Pinout for TM
 tm = [
     tm1637.TM1637(clk=Pin(1), dio=Pin(0)),
     tm1637.TM1637(clk=Pin(3), dio=Pin(2)),
@@ -42,7 +31,6 @@ esp.osdebug(None)
 import gc
 gc.collect()
 
-#Pinout for LEDs
 led6 = Pin(6, Pin.OUT)
 led7 = Pin(7, Pin.OUT)
 led8 = Pin(8, Pin.OUT)
@@ -59,15 +47,23 @@ led10.value(1)
 led20.value(1)
 led21.value(1)
 
-#HTTP/HTTPS Web services status URLs
-PING_URLs = [ ("google.com", 443, led6),
-              ("yahoo.com", 443, led7),
-              ("cnn.com", 443, led8),
-              ("foxnews.com", 80, led9),
-              ("192.168.20.10", 4343, led10),
-              ("yourdomain.com", 443, led20),
-              ("yourserver.local", 8080, led21)]
-
+with open("config.json") as f:
+    config = json.load(f)
+RA_URLs = []
+for entry in config["RA_URLs"]:
+    RA_URLs.append({
+        "url": entry["url"],
+        "location": entry["location"]        
+    })
+PING_URLs = []
+for entry in config["PING_TARGETS"]:
+    PING_URLs.append({
+        "url": entry["url"],
+        "port": entry["port"],
+        "led": Pin(entry["led"], Pin.OUT)
+    })
+ssid = config["wifi"]["ssid"]
+password = config["wifi"]["password"]
 
 station = network.WLAN(network.STA_IF)
 
@@ -111,25 +107,30 @@ def tcp_ping(host, port=80, timeout=2000):
         return False, str(e)
 
 while(1):
-    for i in range(len(RA_URLs)):
-        RA_data = requests.get(RA_URLs[i])
+    for i, entry in enumerate(RA_URLs):
+        url = entry["url"]
+        location = entry["location"]
+
+        RA_data = requests.get(url)
         RA_text = RA_data.text
 
         #print(RA_data.text)
-
         marker = "                                            <b>" #Find this on line 265 in the Room Alert HTML.  The Temp is right after it.
         start = RA_text.find(marker)
 
         if start != -1:
             start += len(marker)
             end = RA_text.find("°F", start)
-            Temps[i] = float(RA_text[start:end].strip())
-            print(Locations[i]," temperature:", Temps[i])
-            print_temp(tm[i],Temps[i])
+            Temp = float(RA_text[start:end].strip())
+            print(location," temperature:", Temp)
+            print_temp(tm[i],Temp)
         else:
             print("Temperature not found")
             
-    for host, port, led in PING_URLs:
+    for entry in PING_URLs:
+            host = entry["url"]
+            port = entry["port"]
+            led = entry["led"]
             ok, info = tcp_ping(host, port)
             if ok:
                 print(host, "reachable, latency:", info, "ms")
@@ -137,14 +138,6 @@ while(1):
             else:
                 print(host, "UNREACHABLE:", info)
                 led.value(1)
-                
+            
     
     time.sleep(60)
-
-
-
-
-
-
-
-
