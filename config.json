@@ -1,0 +1,20 @@
+{
+    "wifi": {
+        "ssid": "NachoWiFi"
+        "password": "YourPassword"
+        },
+    "RA_URLs": [
+      {"url": "https://account.roomalert.com/public/device/yourdeviceid", "location": "CLT"},
+      {"url": "https://account.roomalert.com/public/device/yourdeviceid", "location": "ATL"},
+      {"url": "https://account.roomalert.com/public/device/yourdeviceid", "location": "NYC"} ],
+    "PING_TARGETS": [
+        {"url": "google.com", "port": 443, "led": 6},
+        {"url": "1.1.1.1", "port": 443, "led": 7},
+		"url": "1.1.1.1", "port": 443, "led": 8}
+		"url": "1.1.1.1", "port": 443, "led": 9}
+        {"url": "192.168.10.20", "port": 8006, "led": 10},
+        {"url": "192.168.50.4", "port": 8006, "led": 20},
+        {"url": "192.168.0.1", "port": 3000, "led": 21}
+    ]
+}
+
