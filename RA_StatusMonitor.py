@@ -1,4 +1,4 @@
-# Room Alert ESP32 Monitor V4.0
+# Room Alert ESP32 Monitor V4.1
 # Andrew Bowman 2026
 # https://docs.sunfounder.com/projects/umsk/en/latest/04_pi_pico/pico_lesson26_lcd.html
 # https://microcontrollerslab.com/micropython-openweathermap-api-esp32-esp8266-sensorless-weather-station/
@@ -6,6 +6,7 @@
 import time
 import socket
 import tm1637
+import _thread
 from machine import Pin
 tm = [
     tm1637.TM1637(clk=Pin(1), dio=Pin(0)),
@@ -113,7 +114,7 @@ while(1):
 
         RA_data = requests.get(url)
         RA_text = RA_data.text
-
+        RA_data.close()
         #print(RA_data.text)
         marker = "                                            <b>" #Find this on line 265 in the Room Alert HTML.  The Temp is right after it.
         start = RA_text.find(marker)
@@ -139,5 +140,4 @@ while(1):
                 print(host, "UNREACHABLE:", info)
                 led.value(1)
             
-    
     time.sleep(60)
