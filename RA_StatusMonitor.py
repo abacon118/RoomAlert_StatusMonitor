@@ -1,4 +1,4 @@
-# Room Alert ESP32 Monitor V4.1
+# Room Alert ESP32 Monitor V4.2
 # Andrew Bowman 2026
 # https://docs.sunfounder.com/projects/umsk/en/latest/04_pi_pico/pico_lesson26_lcd.html
 # https://microcontrollerslab.com/micropython-openweathermap-api-esp32-esp8266-sensorless-weather-station/
@@ -106,6 +106,8 @@ def tcp_ping(host, port=80, timeout=2000):
         return True, time.ticks_diff(time.ticks_ms(), start)
     except Exception as e:
         return False, str(e)
+    finally:
+        s.close()
 
 while(1):
     for i, entry in enumerate(RA_URLs):
@@ -115,6 +117,8 @@ while(1):
         RA_data = requests.get(url)
         RA_text = RA_data.text
         RA_data.close()
+        del RA_data
+        gc.collect()
         #print(RA_data.text)
         marker = "                                            <b>" #Find this on line 265 in the Room Alert HTML.  The Temp is right after it.
         start = RA_text.find(marker)
